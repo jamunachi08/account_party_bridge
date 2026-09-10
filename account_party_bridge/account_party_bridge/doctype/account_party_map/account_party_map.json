@@ -1,0 +1,246 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "format:{account_type}",
+ "creation": "2026-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sb_trigger",
+  "account_type",
+  "create_leaf_party",
+  "cb_trigger",
+  "enabled",
+  "create_group_node",
+  "sync_on_rename",
+  "sb_group",
+  "group_doctype",
+  "group_name_field",
+  "cb_group",
+  "group_parent_field",
+  "root_group",
+  "sb_party",
+  "party_doctype",
+  "party_name_field",
+  "party_group_field",
+  "cb_party",
+  "accounts_table_field",
+  "party_naming_field",
+  "append_company_abbr",
+  "sb_fieldmap",
+  "field_map_help",
+  "field_mappings",
+  "sb_actions",
+  "backfill_help"
+ ],
+ "fields": [
+  {
+   "fieldname": "sb_trigger",
+   "fieldtype": "Section Break",
+   "label": "Trigger"
+  },
+  {
+   "description": "Must match Account.account_type exactly",
+   "fieldname": "account_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Account Type",
+   "options": "\nReceivable\nPayable\nEmployee\nShareholder",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "default": "1",
+   "description": "Create a party when a non-group Account of this type is created",
+   "fieldname": "create_leaf_party",
+   "fieldtype": "Check",
+   "label": "Create Party from Leaf Account"
+  },
+  {
+   "fieldname": "cb_trigger",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Enabled"
+  },
+  {
+   "default": "1",
+   "description": "Create a group node when a group Account of this type is created",
+   "fieldname": "create_group_node",
+   "fieldtype": "Check",
+   "label": "Create Group from Group Account"
+  },
+  {
+   "default": "0",
+   "description": "Push Account changes to the linked party on update. Only fields flagged Overwrite on Sync",
+   "fieldname": "sync_on_rename",
+   "fieldtype": "Check",
+   "label": "Sync Party on Account Update"
+  },
+  {
+   "depends_on": "create_group_node",
+   "description": "Applied when Account.is_group = 1",
+   "fieldname": "sb_group",
+   "fieldtype": "Section Break",
+   "label": "Group Account Mapping"
+  },
+  {
+   "description": "Tree doctype, e.g. Customer Group / Supplier Group",
+   "fieldname": "group_doctype",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Group DocType",
+   "link_filters": "[[\"DocType\",\"is_tree\",\"=\",1]]",
+   "mandatory_depends_on": "create_group_node",
+   "options": "DocType"
+  },
+  {
+   "description": "e.g. customer_group_name",
+   "fieldname": "group_name_field",
+   "fieldtype": "Select",
+   "label": "Group Name Field",
+   "mandatory_depends_on": "create_group_node"
+  },
+  {
+   "fieldname": "cb_group",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "e.g. parent_customer_group",
+   "fieldname": "group_parent_field",
+   "fieldtype": "Select",
+   "label": "Group Parent Field",
+   "mandatory_depends_on": "create_group_node"
+  },
+  {
+   "description": "Fallback parent when no mirror node is found, e.g. All Customer Groups",
+   "fieldname": "root_group",
+   "fieldtype": "Data",
+   "label": "Root Group",
+   "mandatory_depends_on": "create_group_node"
+  },
+  {
+   "depends_on": "create_leaf_party",
+   "description": "Applied when Account.is_group = 0",
+   "fieldname": "sb_party",
+   "fieldtype": "Section Break",
+   "label": "Leaf Account Mapping"
+  },
+  {
+   "description": "e.g. Customer / Supplier",
+   "fieldname": "party_doctype",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Party DocType",
+   "link_filters": "[[\"DocType\",\"istable\",\"=\",0],[\"DocType\",\"issingle\",\"=\",0]]",
+   "mandatory_depends_on": "create_leaf_party",
+   "options": "DocType"
+  },
+  {
+   "description": "Receives Account.account_name, e.g. customer_name",
+   "fieldname": "party_name_field",
+   "fieldtype": "Select",
+   "label": "Party Name Field",
+   "mandatory_depends_on": "create_leaf_party"
+  },
+  {
+   "description": "Receives the mirrored group node, e.g. customer_group",
+   "fieldname": "party_group_field",
+   "fieldtype": "Select",
+   "label": "Party Group Field"
+  },
+  {
+   "fieldname": "cb_party",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "accounts",
+   "description": "Party Account child table fieldname. Blank = do not bind the account",
+   "fieldname": "accounts_table_field",
+   "fieldtype": "Data",
+   "label": "Accounts Table Field"
+  },
+  {
+   "description": "Account fieldname used as the party docname, e.g. account_number. Blank = ERPNext default naming",
+   "fieldname": "party_naming_field",
+   "fieldtype": "Select",
+   "label": "Party Naming Field"
+  },
+  {
+   "default": "0",
+   "depends_on": "party_naming_field",
+   "description": "Suffix the company abbreviation. Use for multi-company code collisions",
+   "fieldname": "append_company_abbr",
+   "fieldtype": "Check",
+   "label": "Append Company Abbr to Name"
+  },
+  {
+   "fieldname": "sb_fieldmap",
+   "fieldtype": "Section Break",
+   "label": "Field Mapping"
+  },
+  {
+   "fieldname": "field_map_help",
+   "fieldtype": "HTML",
+   "label": "Field Map Help",
+   "options": "<p class=\"text-muted small\">Every field on Account and on the party doctype is listed, custom fields included and marked with an asterisk. Add a row per field you want carried across.</p>"
+  },
+  {
+   "fieldname": "field_mappings",
+   "fieldtype": "Table",
+   "label": "Field Mappings",
+   "options": "Account Party Field Map"
+  },
+  {
+   "fieldname": "sb_actions",
+   "fieldtype": "Section Break",
+   "label": "Backfill"
+  },
+  {
+   "fieldname": "backfill_help",
+   "fieldtype": "HTML",
+   "label": "Backfill Help",
+   "options": "<p class=\"text-muted small\">Use the Backfill Existing Accounts button in the toolbar to apply this map to accounts that already exist. It is safe to run more than once.</p>"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Account Party Bridge",
+ "name": "Account Party Map",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
