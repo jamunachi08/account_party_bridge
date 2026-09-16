@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "cb_main",
+  "suppress_messages",
+  "sb_info",
+  "info_html"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "description": "Master switch. Turn off to stop all account to party mirroring without editing individual maps",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "cb_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Do not show the green created alerts. Errors are still logged",
+   "fieldname": "suppress_messages",
+   "fieldtype": "Check",
+   "label": "Suppress Creation Alerts"
+  },
+  {
+   "fieldname": "sb_info",
+   "fieldtype": "Section Break",
+   "label": "About"
+  },
+  {
+   "fieldname": "info_html",
+   "fieldtype": "HTML",
+   "label": "Info",
+   "options": "<p class=\"text-muted small\">Per account type behaviour lives in <b>Account Party Map</b>. This page only holds the global switches.</p>"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Account Party Bridge",
+ "name": "Account Party Bridge Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
